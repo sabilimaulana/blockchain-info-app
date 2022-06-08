@@ -11,10 +11,7 @@ use crate::{
     blockchain_transaction::BlockchainTransaction,
 };
 
-use {
-    dotenv,
-    std::{io, thread, time},
-};
+use std::{io, thread, time};
 
 fn blockchain_info_app(address: &str) {
     let blockchain_status: BlockchainStatus = blockchain_info::blockchain_status_request();
@@ -90,6 +87,16 @@ fn blockchain_info_app(address: &str) {
 }
 
 fn main() {
-    let entered_address = dotenv::var("WALLET").expect("Error reading env var");
+    // let entered_address = dotenv::var("WALLET").expect("Error reading env var");
+
+    println!("\n\nWelcome to the Bitcoin wallet analyser!\n\n");
+    println!("Please enter your Bitcoin address:");
+
+    let mut entered_address = String::new();
+
+    io::stdin()
+        .read_line(&mut entered_address)
+        .expect("Error reading input");
+
     blockchain_info_app(&entered_address);
 }
